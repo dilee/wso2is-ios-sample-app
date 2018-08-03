@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2412CDFD3B1D5B23AC3EE65F /* Pods_WSO2_IS_SampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F6DF6C1CA432C1F2FF999B /* Pods_WSO2_IS_SampleAppTests.framework */; };
+		2E95CD915361DA4EF6995E72 /* Pods_WSO2_IS_SampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */; };
 		89AA106821142F4C00D64645 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA106721142F4C00D64645 /* AppDelegate.swift */; };
 		89AA106A21142F4C00D64645 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA106921142F4C00D64645 /* ViewController.swift */; };
 		89AA106D21142F4C00D64645 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89AA106B21142F4C00D64645 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1EC2638003BA63D7A8F5F1C8 /* Pods-WSO2-IS-SampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleAppTests/Pods-WSO2-IS-SampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		431C92A6CD79D9D4E5E4F22F /* Pods-WSO2-IS-SampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleAppTests/Pods-WSO2-IS-SampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		89AA106421142F4C00D64645 /* WSO2-IS-SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WSO2-IS-SampleApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89AA106721142F4C00D64645 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89AA106921142F4C00D64645 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +40,10 @@
 		89AA107821142F4D00D64645 /* WSO2-IS-SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WSO2-IS-SampleAppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89AA107C21142F4D00D64645 /* WSO2_IS_SampleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSO2_IS_SampleAppTests.swift; sourceTree = "<group>"; };
 		89AA107E21142F4D00D64645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9294C912C025A912174E9DF8 /* Pods-WSO2-IS-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WSO2_IS_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E817B8FD6EC7D08A6E5F067A /* Pods-WSO2-IS-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		F5F6DF6C1CA432C1F2FF999B /* Pods_WSO2_IS_SampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WSO2_IS_SampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E95CD915361DA4EF6995E72 /* Pods_WSO2_IS_SampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,18 +59,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2412CDFD3B1D5B23AC3EE65F /* Pods_WSO2_IS_SampleAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BD42636C39F4AEB02C089F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */,
+				F5F6DF6C1CA432C1F2FF999B /* Pods_WSO2_IS_SampleAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3D90E7994BCD2FDD28FF5CAE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E817B8FD6EC7D08A6E5F067A /* Pods-WSO2-IS-SampleApp.debug.xcconfig */,
+				9294C912C025A912174E9DF8 /* Pods-WSO2-IS-SampleApp.release.xcconfig */,
+				431C92A6CD79D9D4E5E4F22F /* Pods-WSO2-IS-SampleAppTests.debug.xcconfig */,
+				1EC2638003BA63D7A8F5F1C8 /* Pods-WSO2-IS-SampleAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		89AA105B21142F4C00D64645 = {
 			isa = PBXGroup;
 			children = (
 				89AA106621142F4C00D64645 /* WSO2-IS-SampleApp */,
 				89AA107B21142F4D00D64645 /* WSO2-IS-SampleAppTests */,
 				89AA106521142F4C00D64645 /* Products */,
+				3D90E7994BCD2FDD28FF5CAE /* Pods */,
+				1BD42636C39F4AEB02C089F2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,9 +135,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89AA108121142F4D00D64645 /* Build configuration list for PBXNativeTarget "WSO2-IS-SampleApp" */;
 			buildPhases = (
+				B582BAE96168C28E49FD1993 /* [CP] Check Pods Manifest.lock */,
 				89AA106021142F4C00D64645 /* Sources */,
 				89AA106121142F4C00D64645 /* Frameworks */,
 				89AA106221142F4C00D64645 /* Resources */,
+				D909BCE443606CDB4ED7DD8B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -120,6 +154,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89AA108421142F4D00D64645 /* Build configuration list for PBXNativeTarget "WSO2-IS-SampleAppTests" */;
 			buildPhases = (
+				9A7AB7B27229BC3DB57BBFE2 /* [CP] Check Pods Manifest.lock */,
 				89AA107421142F4D00D64645 /* Sources */,
 				89AA107521142F4D00D64645 /* Frameworks */,
 				89AA107621142F4D00D64645 /* Resources */,
@@ -191,6 +226,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9A7AB7B27229BC3DB57BBFE2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WSO2-IS-SampleAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B582BAE96168C28E49FD1993 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WSO2-IS-SampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D909BCE443606CDB4ED7DD8B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		89AA106021142F4C00D64645 /* Sources */ = {
@@ -356,6 +448,7 @@
 		};
 		89AA108221142F4D00D64645 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E817B8FD6EC7D08A6E5F067A /* Pods-WSO2-IS-SampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -373,6 +466,7 @@
 		};
 		89AA108321142F4D00D64645 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9294C912C025A912174E9DF8 /* Pods-WSO2-IS-SampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -390,6 +484,7 @@
 		};
 		89AA108521142F4D00D64645 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 431C92A6CD79D9D4E5E4F22F /* Pods-WSO2-IS-SampleAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -410,6 +505,7 @@
 		};
 		89AA108621142F4D00D64645 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EC2638003BA63D7A8F5F1C8 /* Pods-WSO2-IS-SampleAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

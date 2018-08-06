@@ -20,23 +20,17 @@ import UIKit
 
 class LoggedInViewController: UIViewController {
     
-    var accessToken: String?
-    var refreshToken: String?
-    var idToken: String?
-    var userName: String?
+    var userInfo: [String: Any]?
     
-    // Mark: Properties
-    @IBOutlet weak var accessTokenLabel: UILabel!
-    @IBOutlet weak var refreshTokenLabel: UILabel!
-    @IBOutlet weak var idTokenLabel: UILabel!
+    // MARK: Properties
+    @IBOutlet weak var userNameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Setting tokens to labels
-        accessTokenLabel.text = accessToken
-        refreshTokenLabel.text = refreshToken
-        idTokenLabel.text = idToken
+        let userNameFull = userInfo!["username"] as? String
+        userNameLabel.text = userNameFull?.components(separatedBy: "@")[0]
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,14 +38,8 @@ class LoggedInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: Actions
+    @IBAction func signOutButton(_ sender: UIButton) {
+        // Sign out logic
     }
-    */
-
 }

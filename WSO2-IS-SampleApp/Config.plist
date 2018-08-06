@@ -2,13 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UserInfoURL</key>
+	<string>https://wso2is.local:9443/oauth2/introspect</string>
 	<key>TokenURL</key>
 	<string>https://wso2is.local:9443/oauth2/token</string>
 	<key>AuthURL</key>
 	<string>https://wso2is.local:9443/oauth2/authorize</string>
 	<key>RedirectURL</key>
-	<string>wso2is.local://oauth</string>
+	<string>wso2is.local:/oauth</string>
 	<key>ClientID</key>
-	<string>J3O1l4tyt_nCi1jyl5PuYcOeBOQa</string>
+	<string>rD5qv6UALxzt5OCKuSjCJQkxFAIa</string>
 </dict>
 </plist>

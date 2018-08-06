@@ -17,6 +17,7 @@
  */
 
 import Foundation
+import AppAuth
 
 class OAuthUtils {
     
@@ -32,7 +33,6 @@ class OAuthUtils {
         let segments = jwt.components(separatedBy: ".")
         return decodeJWTPart(segments[1]) ?? [:]
     }
-    
     
     /// Decodes Base64 URLs.
     ///
@@ -53,7 +53,6 @@ class OAuthUtils {
         return Data(base64Encoded: base64, options: .ignoreUnknownCharacters)
     }
     
-    
     /// Decodes a segment of JWT.
     ///
     /// - Parameter value: JWT Segment.
@@ -63,7 +62,6 @@ class OAuthUtils {
             let json = try? JSONSerialization.jsonObject(with: bodyData, options: []), let payload = json as? [String: Any] else {
                 return nil
         }
-        
         return payload
     }
     

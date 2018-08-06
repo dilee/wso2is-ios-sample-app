@@ -117,16 +117,16 @@
 		89AA106621142F4C00D64645 /* WSO2-IS-SampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				89AA109C2118BB4100D64645 /* utils */,
-				89AA109B2118B48800D64645 /* resources */,
 				89AA106721142F4C00D64645 /* AppDelegate.swift */,
 				89AA106921142F4C00D64645 /* ViewController.swift */,
+				89AA1096211848AE00D64645 /* LoggedInViewController.swift */,
 				89AA106B21142F4C00D64645 /* Main.storyboard */,
-				89AA106E21142F4D00D64645 /* Assets.xcassets */,
 				89AA107021142F4D00D64645 /* LaunchScreen.storyboard */,
+				89AA109C2118BB4100D64645 /* utils */,
+				89AA109B2118B48800D64645 /* resources */,
+				89AA106E21142F4D00D64645 /* Assets.xcassets */,
 				89AA107321142F4D00D64645 /* Info.plist */,
 				89AA108A2117F5C500D64645 /* Config.plist */,
-				89AA1096211848AE00D64645 /* LoggedInViewController.swift */,
 			);
 			path = "WSO2-IS-SampleApp";
 			sourceTree = "<group>";

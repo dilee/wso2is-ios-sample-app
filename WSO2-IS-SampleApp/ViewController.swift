@@ -27,6 +27,10 @@ class ViewController: UIViewController {
     var redirectURLStr: String?
     var authURLStr: String?
     var tokenURLStr: String?
+    
+    // Tokens
+    var accessToken: String?
+    var refreshToken: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,10 +117,15 @@ class ViewController: UIViewController {
     }
     
     func logIn(authotizationState: OIDAuthState) {
-        let loggedInVC = LoggedInViewController()
-        loggedInVC.accessToken = authotizationState.lastTokenResponse?.accessToken!
-        loggedInVC.refreshToken = authotizationState.lastTokenResponse?.refreshToken!
-        navigationController?.pushViewController(loggedInVC, animated: true)
+        accessToken = authotizationState.lastTokenResponse?.accessToken!
+        refreshToken = authotizationState.lastTokenResponse?.refreshToken!
+        performSegue(withIdentifier: "loggedInSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let loggedInVC : LoggedInViewController = segue.destination as! LoggedInViewController
+        loggedInVC.accessToken = accessToken
+        loggedInVC.refreshToken = refreshToken
     }
 
 }

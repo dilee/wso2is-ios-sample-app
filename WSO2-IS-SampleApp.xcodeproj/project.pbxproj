@@ -15,6 +15,9 @@
 		89AA106F21142F4D00D64645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89AA106E21142F4D00D64645 /* Assets.xcassets */; };
 		89AA107221142F4D00D64645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89AA107021142F4D00D64645 /* LaunchScreen.storyboard */; };
 		89AA107D21142F4D00D64645 /* WSO2_IS_SampleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA107C21142F4D00D64645 /* WSO2_IS_SampleAppTests.swift */; };
+		89AA108B2117F5C500D64645 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89AA108A2117F5C500D64645 /* Config.plist */; };
+		89AA10952118380900D64645 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10942118380900D64645 /* Constants.swift */; };
+		89AA1097211848AE00D64645 /* LoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1096211848AE00D64645 /* LoggedInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		89AA107821142F4D00D64645 /* WSO2-IS-SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WSO2-IS-SampleAppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89AA107C21142F4D00D64645 /* WSO2_IS_SampleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSO2_IS_SampleAppTests.swift; sourceTree = "<group>"; };
 		89AA107E21142F4D00D64645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89AA108A2117F5C500D64645 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		89AA10942118380900D64645 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		89AA1096211848AE00D64645 /* LoggedInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInViewController.swift; sourceTree = "<group>"; };
 		9294C912C025A912174E9DF8 /* Pods-WSO2-IS-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WSO2_IS_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E817B8FD6EC7D08A6E5F067A /* Pods-WSO2-IS-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +121,9 @@
 				89AA106E21142F4D00D64645 /* Assets.xcassets */,
 				89AA107021142F4D00D64645 /* LaunchScreen.storyboard */,
 				89AA107321142F4D00D64645 /* Info.plist */,
+				89AA108A2117F5C500D64645 /* Config.plist */,
+				89AA10942118380900D64645 /* Constants.swift */,
+				89AA1096211848AE00D64645 /* LoggedInViewController.swift */,
 			);
 			path = "WSO2-IS-SampleApp";
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89AA108B2117F5C500D64645 /* Config.plist in Resources */,
 				89AA107221142F4D00D64645 /* LaunchScreen.storyboard in Resources */,
 				89AA106F21142F4D00D64645 /* Assets.xcassets in Resources */,
 				89AA106D21142F4C00D64645 /* Main.storyboard in Resources */,
@@ -289,8 +299,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89AA1097211848AE00D64645 /* LoggedInViewController.swift in Sources */,
 				89AA106A21142F4C00D64645 /* ViewController.swift in Sources */,
 				89AA106821142F4C00D64645 /* AppDelegate.swift in Sources */,
+				89AA10952118380900D64645 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

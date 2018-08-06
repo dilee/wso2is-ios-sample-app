@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TokenURL</key>
+	<string>https://wso2is.local:9443/oauth2/token</string>
+	<key>AuthURL</key>
+	<string>https://wso2is.local:9443/oauth2/authorize</string>
+	<key>RedirectURL</key>
+	<string>wso2is.local://oauth</string>
+	<key>ClientSecret</key>
+	<string>_JM6EuIHnhByexqKdjcuvjMY0yQa</string>
+	<key>ClientID</key>
+	<string>J3O1l4tyt_nCi1jyl5PuYcOeBOQa</string>
+</dict>
+</plist>

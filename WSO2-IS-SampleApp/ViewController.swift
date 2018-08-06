@@ -23,7 +23,6 @@ class ViewController: UIViewController {
     
     // Configuration Properties
     var clientID: String?
-    var clientSecret: String?
     var redirectURLStr: String?
     var authURLStr: String?
     var tokenURLStr: String?
@@ -46,7 +45,6 @@ class ViewController: UIViewController {
         // Read from dictionary content
         if let configFileDictionaryContent = configFileDictionary {
             clientID = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kClientIdPropKey) as? String
-            clientSecret = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kClientSecretPropKey) as? String
             redirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
             authURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kAuthURLPropKey) as? String
             tokenURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kTokenURLPropKey) as? String
@@ -55,10 +53,9 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    // Disable auto-rotate
+    /// Disable auto-rotate
     override open var shouldAutorotate: Bool {
         return false
     }
@@ -69,6 +66,7 @@ class ViewController: UIViewController {
         startAuthWithPKCE()
     }
     
+    /// Starts authorization flow.
     func startAuthWithPKCE() {
         
         let authURL = URL(string: authURLStr!)
@@ -76,38 +74,26 @@ class ViewController: UIViewController {
         let redirectURL = URL(string: redirectURLStr!)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        var authState: OIDAuthState?
-        
         // Configure OIDC Service
         let config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!)
         
-        // Generate PKCE code verifier
-        let codeVerifier = OIDAuthorizationRequest.generateCodeVerifier()
-        
-        //Generate code challenge
-        let codeChallenge = OIDAuthorizationRequest.codeChallengeS256(forVerifier: codeVerifier)
-        
-        // Code challange method
-        let codeChalMethod = OIDOAuthorizationRequestCodeChallengeMethodS256
-        
-        // Generate authorization request
+        // Generate authorization request with PKCE
         let authRequest = OIDAuthorizationRequest(configuration: config,
                                                   clientId: clientID!,
-                                                  clientSecret: clientSecret,
-                                                  scope: Constants.OAuthReqConstants.kScope,
-                                                  redirectURL: redirectURL,
+                                                  scopes: [Constants.OAuthReqConstants.kScope],
+                                                  redirectURL: redirectURL!,
                                                   responseType: OIDResponseTypeCode,
-                                                  state: OIDAuthorizationRequest.generateState(),
-                                                  codeVerifier: codeVerifier,
-                                                  codeChallenge: codeChallenge,
-                                                  codeChallengeMethod: codeChalMethod,
                                                   additionalParameters: nil)
         
+        // Perform authorization
         appDelegate.externalUserAgentSession = OIDAuthState.authState(byPresenting: authRequest, presenting: self, callback: { (authorizationState, error) in
             
             // Handle authorization error
             if let e = error {
                 print(Constants.ErrorMessages.authorizationErrorGeneral + " : " + e.localizedDescription)
+                let alert = UIAlertController(title: "Error", message: Constants.ErrorMessages.authorizationErrorGeneral, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
             
             // Authorization request success
@@ -115,12 +101,22 @@ class ViewController: UIViewController {
                 self.logIn(authorizationState: authState)
             }
         })
+        
     }
     
-    func logIn(authorizationState: OIDAuthState) {
+    
+    /// Logs in user and switches to the next view.
+    ///
+    /// - Parameter authorizationState: Authorization State object.
+    func logIn(authorizationState: OIDAuthState) -> Void {
         accessToken = authorizationState.lastTokenResponse?.accessToken!
         refreshToken = authorizationState.lastTokenResponse?.refreshToken!
         idToken = authorizationState.lastTokenResponse?.idToken!
+        
+        print("Access Token: " + accessToken!)
+        print("Refresh Token: " + refreshToken!)
+        print("ID Token: " + idToken!)
+        
         performSegue(withIdentifier: "loggedInSegue", sender: self)
     }
     

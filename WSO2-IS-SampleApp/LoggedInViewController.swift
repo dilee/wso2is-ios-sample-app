@@ -23,6 +23,7 @@ class LoggedInViewController: UIViewController {
     var accessToken: String?
     var refreshToken: String?
     var idToken: String?
+    var userName: String?
     
     // Mark: Properties
     @IBOutlet weak var accessTokenLabel: UILabel!

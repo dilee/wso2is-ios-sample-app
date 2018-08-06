@@ -23,7 +23,6 @@ class Constants {
     // Constants related to OAuth
     struct OAuthReqConstants {
         static let kClientIdPropKey: String = "ClientID"
-        static let kClientSecretPropKey: String = "ClientSecret"
         static let kRedirectURLPropKey: String = "RedirectURL"
         static let kAuthURLPropKey: String = "AuthURL"
         static let kTokenURLPropKey: String = "TokenURL"

@@ -27,7 +27,7 @@ class Constants {
         static let kRedirectURLPropKey: String = "RedirectURL"
         static let kAuthURLPropKey: String = "AuthURL"
         static let kTokenURLPropKey: String = "TokenURL"
-        static let kScope: String = "default"
+        static let kScope: String = "openid"
     }
     
     // Error messages

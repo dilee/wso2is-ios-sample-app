@@ -33,7 +33,7 @@
 /* Begin PBXFileReference section */
 		1EC2638003BA63D7A8F5F1C8 /* Pods-WSO2-IS-SampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleAppTests/Pods-WSO2-IS-SampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		431C92A6CD79D9D4E5E4F22F /* Pods-WSO2-IS-SampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleAppTests/Pods-WSO2-IS-SampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		89AA106421142F4C00D64645 /* WSO2-IS-SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WSO2-IS-SampleApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89AA106421142F4C00D64645 /* WSO2 IS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WSO2 IS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89AA106721142F4C00D64645 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89AA106921142F4C00D64645 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		89AA106C21142F4C00D64645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		89AA106521142F4C00D64645 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				89AA106421142F4C00D64645 /* WSO2-IS-SampleApp.app */,
+				89AA106421142F4C00D64645 /* WSO2 IS Sample.app */,
 				89AA107821142F4D00D64645 /* WSO2-IS-SampleAppTests.xctest */,
 			);
 			name = Products;
@@ -156,7 +156,7 @@
 			);
 			name = "WSO2-IS-SampleApp";
 			productName = "WSO2-IS-SampleApp";
-			productReference = 89AA106421142F4C00D64645 /* WSO2-IS-SampleApp.app */;
+			productReference = 89AA106421142F4C00D64645 /* WSO2 IS Sample.app */;
 			productType = "com.apple.product-type.application";
 		};
 		89AA107721142F4D00D64645 /* WSO2-IS-SampleAppTests */ = {
@@ -470,7 +470,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wso2.is.sample.WSO2-IS-SampleApp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "WSO2 IS Sample";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -488,7 +488,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wso2.is.sample.WSO2-IS-SampleApp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "WSO2 IS Sample";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

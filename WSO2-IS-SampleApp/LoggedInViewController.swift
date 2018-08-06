@@ -22,18 +22,20 @@ class LoggedInViewController: UIViewController {
     
     var accessToken: String?
     var refreshToken: String?
+    var idToken: String?
     
     // Mark: Properties
     @IBOutlet weak var accessTokenLabel: UILabel!
     @IBOutlet weak var refreshTokenLabel: UILabel!
-
+    @IBOutlet weak var idTokenLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
+        // Setting tokens to labels
         accessTokenLabel.text = accessToken
         refreshTokenLabel.text = refreshToken
+        idTokenLabel.text = idToken
     }
 
     override func didReceiveMemoryWarning() {

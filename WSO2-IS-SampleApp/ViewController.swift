@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     // Tokens
     var accessToken: String?
     var refreshToken: String?
+    var idToken: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,14 +112,15 @@ class ViewController: UIViewController {
             
             // Authorization request success
             if let authState = authorizationState {
-                self.logIn(authotizationState: authState)
+                self.logIn(authorizationState: authState)
             }
         })
     }
     
-    func logIn(authotizationState: OIDAuthState) {
-        accessToken = authotizationState.lastTokenResponse?.accessToken!
-        refreshToken = authotizationState.lastTokenResponse?.refreshToken!
+    func logIn(authorizationState: OIDAuthState) {
+        accessToken = authorizationState.lastTokenResponse?.accessToken!
+        refreshToken = authorizationState.lastTokenResponse?.refreshToken!
+        idToken = authorizationState.lastTokenResponse?.idToken!
         performSegue(withIdentifier: "loggedInSegue", sender: self)
     }
     
@@ -126,6 +128,7 @@ class ViewController: UIViewController {
         let loggedInVC : LoggedInViewController = segue.destination as! LoggedInViewController
         loggedInVC.accessToken = accessToken
         loggedInVC.refreshToken = refreshToken
+        loggedInVC.idToken = idToken
     }
 
 }

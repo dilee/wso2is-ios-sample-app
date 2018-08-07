@@ -42,4 +42,8 @@ class LoggedInViewController: UIViewController {
     @IBAction func signOutButton(_ sender: UIButton) {
         // Sign out logic
     }
+    
+    func logOutUser() {
+        
+    }
 }

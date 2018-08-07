@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     
     var authState: OIDAuthState?
     var userInfo: [String: Any]?
+    let kAuthStateKey = "authState"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +105,7 @@ class ViewController: UIViewController {
             
             // Authorization request success
             if let authState = authorizationState {
-                self.authState = authState
+                self.setAuthState(authState)
                 self.accessToken = authState.lastTokenResponse?.accessToken!
                 self.refreshToken = authState.lastTokenResponse?.refreshToken!
                 self.idToken = authState.lastTokenResponse?.idToken!
@@ -227,5 +228,60 @@ class ViewController: UIViewController {
         loggedInVC.userInfo = self.userInfo
     }
     
+}
+
+//MARK: OIDAuthState Delegate
+extension ViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate {
+    
+    func didChange(_ state: OIDAuthState) {
+        self.stateChanged()
+    }
+    
+    func authState(_ state: OIDAuthState, didEncounterAuthorizationError error: Error) {
+        print("Authorization error: \(error)")
+    }
+}
+
+//MARK: Helper Methods
+extension ViewController {
+    
+    /// Saves the auth state to memory.
+    func saveState() {
+        
+        var data: Data? = nil
+        
+        if let authState = self.authState {
+            data = NSKeyedArchiver.archivedData(withRootObject: authState)
+        }
+        
+        UserDefaults.standard.set(data, forKey: self.kAuthStateKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    // Loads the auth state from memory.
+    func loadState() {
+        guard let data = UserDefaults.standard.object(forKey: self.kAuthStateKey) as? Data else {
+            return
+        }
+        
+        if let authState = NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState {
+            self.setAuthState(authState)
+        }
+    }
+    
+    /// Sets the auth state.
+    func setAuthState(_ authState: OIDAuthState?) {
+        if (self.authState == authState) {
+            return;
+        }
+        self.authState = authState;
+        self.authState?.stateChangeDelegate = self;
+        self.stateChanged()
+    }
+    
+    /// Updates the state when a change occures.
+    func stateChanged() {
+        self.saveState()
+    }
 }
 

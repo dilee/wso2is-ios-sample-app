@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LogOutURL</key>
+	<string>https://wso2is.local:9443/oidc/logout</string>
 	<key>UserInfoURL</key>
 	<string>https://wso2is.local:9443/oauth2/introspect</string>
 	<key>TokenURL</key>

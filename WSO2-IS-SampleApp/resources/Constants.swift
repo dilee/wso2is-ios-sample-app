@@ -20,6 +20,10 @@ import Foundation
 
 class Constants {
     
+    static let shared = Constants()
+    
+    private init(){}
+    
     /// Constants related to OAuth
     struct OAuthReqConstants {
         static let kClientIdPropKey: String = "ClientID"
@@ -28,6 +32,7 @@ class Constants {
         static let kTokenURLPropKey: String = "TokenURL"
         static let kScope: String = "openid"
         static let kUserInfoURLPropKey = "UserInfoURL"
+        static let kLogoutURLPropKey = "LogOutURL"
     }
     
     /// Error messages
@@ -35,6 +40,7 @@ class Constants {
         static let kAuthorizationErrorGeneral = "Authorization failed."
         static let kErrorFetchingFreshTokens = "Error fetching fresh tokens."
         static let kErrorRetrievingAccessToken = "Error retrieving access token."
+        static let kErrorRetrievingIdToken = "Error retrieving ID token."
         static let kHTTPRequestFailed = "HTTP request failed."
         static let kJSONSerializationError = "JSON Serialization Error."
         static let kAuthorizationError = "Authorization Error."
@@ -45,6 +51,7 @@ class Constants {
         static let kError = "ERROR"
         static let kResponseText = "RESPONSE_TEXT"
         static let kCurrentAccessToken = "CURRENT_ACCESS_TOKEN"
+        static let kCurrentIdToken = "CURRENT_ID_TOKEN"
         static let kHTTP = "HTTP"
     }
     
@@ -52,6 +59,7 @@ class Constants {
     struct LogInfoMessages {
         static let kAccessTokenRefreshed = "Access token was refreshed automatically."
         static let kAccessTokenValid = "Access token was valid and not updated."
+        static let kIdTokenValid = "ID token was valid and not updated."
         static let kHTTPResponseEmpty = "HTTP response data is empty."
         static let kNonHTTPResponse = "Non-HTTP response."
         static let kInfoRetrievalSuccess = "Information retrieval success."

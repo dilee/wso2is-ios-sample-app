@@ -22,7 +22,7 @@ import AppAuth
 class ViewController: UIViewController {
     
     // Configuration Properties
-    var clientID: String?
+    var clientId: String?
     var redirectURLStr: String?
     var authURLStr: String?
     var tokenURLStr: String?
@@ -34,8 +34,11 @@ class ViewController: UIViewController {
     var idToken: String?
     
     var authState: OIDAuthState?
-    var userInfo: [String: Any]?
     let kAuthStateKey = "authState"
+    let authStateManager = AuthStateManager.shared
+    let userInfoManager = UserInfoManager.shared
+    
+    var userInfo: UserInfo?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +50,15 @@ class ViewController: UIViewController {
             configFileDictionary = NSDictionary(contentsOfFile: path)
         }
         
+        // Load auth state if exists
+        let authState = authStateManager.getAuthState()
+        if (authState != nil) {
+            self.authState = authState
+        }
+        
         // Read from dictionary content
         if let configFileDictionaryContent = configFileDictionary {
-            clientID = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kClientIdPropKey) as? String
+            clientId = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kClientIdPropKey) as? String
             redirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
             authURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kAuthURLPropKey) as? String
             tokenURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kTokenURLPropKey) as? String
@@ -86,7 +95,7 @@ class ViewController: UIViewController {
         
         // Generate authorization request with PKCE
         let authRequest = OIDAuthorizationRequest(configuration: config,
-                                                  clientId: clientID!,
+                                                  clientId: clientId!,
                                                   scopes: [Constants.OAuthReqConstants.kScope],
                                                   redirectURL: redirectURL!,
                                                   responseType: OIDResponseTypeCode,
@@ -126,7 +135,6 @@ class ViewController: UIViewController {
         let currentAccessToken: String? = authState?.lastTokenResponse?.accessToken
         
         var jsonResponse: [String: Any]?
-        
         
         // Attempt to fetch fresh tokens if current tokens are expired and perform user info retrieval
         authState?.performAction() { (accessToken, idToken, error) in
@@ -204,7 +212,12 @@ class ViewController: UIViewController {
                     
                     if let json = jsonResponse {
                         print(Constants.LogInfoMessages.kInfoRetrievalSuccess + ": \(json)")
-                        self.userInfo = jsonResponse
+                        let userName = jsonResponse!["username"] as? String
+                        if let un = userName {
+                            let userInfo = UserInfo(userName: un.components(separatedBy: "@")[0])
+                            self.userInfo = userInfo
+                            self.userInfoManager.saveUserInfo(userInfo: userInfo)
+                        }
                         self.logIn()
                     }
                 }
@@ -225,7 +238,11 @@ class ViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let loggedInVC : LoggedInViewController = segue.destination as! LoggedInViewController
-        loggedInVC.userInfo = self.userInfo
+        loggedInVC.authState = self.authState
+        loggedInVC.clientId = self.clientId
+        if let userInfo = self.userInfo {
+            loggedInVC.userInfo = self.userInfo!
+        }
     }
     
 }
@@ -234,7 +251,7 @@ class ViewController: UIViewController {
 extension ViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate {
     
     func didChange(_ state: OIDAuthState) {
-        self.stateChanged()
+        self.authStateChanged()
     }
     
     func authState(_ state: OIDAuthState, didEncounterAuthorizationError error: Error) {
@@ -244,44 +261,21 @@ extension ViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate 
 
 //MARK: Helper Methods
 extension ViewController {
-    
-    /// Saves the auth state to memory.
-    func saveState() {
-        
-        var data: Data? = nil
-        
-        if let authState = self.authState {
-            data = NSKeyedArchiver.archivedData(withRootObject: authState)
-        }
-        
-        UserDefaults.standard.set(data, forKey: self.kAuthStateKey)
-        UserDefaults.standard.synchronize()
-    }
-    
-    // Loads the auth state from memory.
-    func loadState() {
-        guard let data = UserDefaults.standard.object(forKey: self.kAuthStateKey) as? Data else {
-            return
-        }
-        
-        if let authState = NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState {
-            self.setAuthState(authState)
-        }
-    }
-    
-    /// Sets the auth state.
+ 
+    /// Sets or updates the auth state.
     func setAuthState(_ authState: OIDAuthState?) {
         if (self.authState == authState) {
             return;
         }
         self.authState = authState;
         self.authState?.stateChangeDelegate = self;
-        self.stateChanged()
+        self.authStateChanged()
     }
     
     /// Updates the state when a change occures.
-    func stateChanged() {
-        self.saveState()
+    func authStateChanged() {
+        authStateManager.saveAuthState(authState: self.authState!)
     }
+    
 }
 

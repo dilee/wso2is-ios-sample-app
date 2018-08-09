@@ -17,20 +17,47 @@
  */
 
 import UIKit
+import AppAuth
+import SafariServices
 
-class LoggedInViewController: UIViewController {
+class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     
-    var userInfo: [String: Any]?
+    var logoutURLStr: String?
+    var authState: OIDAuthState?
+    var reDirectURLStr: String?
+    var clientId: String?
+    var userInfo: UserInfo?
+    
+    let userInfoManager = UserInfoManager.shared
     
     // MARK: Properties
     @IBOutlet weak var userNameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if self.userInfo == nil {
+            self.userInfo = self.userInfoManager.getUserInfo()
+        }
 
-        // Setting tokens to labels
-        let userNameFull = userInfo!["username"] as? String
-        userNameLabel.text = userNameFull?.components(separatedBy: "@")[0]
+        // Setting user information to labels
+        if let userInfo = self.userInfo {
+            userNameLabel.text = userInfo.userName
+        }
+        
+        var configFileDictionary: NSDictionary?
+        
+        //Load configurations into the resourceFileDictionary dictionary
+        if let path = Bundle.main.path(forResource: "Config", ofType: "plist") {
+            configFileDictionary = NSDictionary(contentsOfFile: path)
+        }
+        
+        // Read from dictionary content
+        if let configFileDictionaryContent = configFileDictionary {
+            logoutURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kLogoutURLPropKey) as? String
+            reDirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
+        }
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,10 +67,57 @@ class LoggedInViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func signOutButton(_ sender: UIButton) {
-        // Sign out logic
+        logOutUser()
     }
     
+    /// Logs out the user.
     func logOutUser() {
+        
+        
+        // Retrieve access token from current state
+        let currentIdToken: String? = authState?.lastTokenResponse?.idToken
+        
+        
+        // Attempt to fetch fresh tokens if current tokens are expired and perform user info retrieval
+        authState?.performAction() { (accessToken, idToken, error) in
+            
+            if error != nil  {
+                print(Constants.ErrorMessages.kErrorFetchingFreshTokens + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
+                return
+            }
+            
+            guard let idToken = idToken else {
+                print(Constants.ErrorMessages.kErrorRetrievingIdToken)
+                return
+            }
+            
+            if currentIdToken != idToken {
+                print(Constants.LogInfoMessages.kAccessTokenRefreshed + ": (\(currentIdToken ?? Constants.LogTags.kCurrentIdToken) to \(idToken))")
+            } else {
+                print(Constants.LogInfoMessages.kIdTokenValid)
+            }
+            
+        }
+        
+        let logoutURL = URL(string: logoutURLStr!)
+        var responseObj: [String: Any]?
+        let state = authState?.lastAuthorizationResponse.state!
+
+        // Build the URL
+        var urlComponents = URLComponents(string: logoutURLStr!)
+        
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "id_token_hint", value: currentIdToken),
+            URLQueryItem(name: "post_logout_redirect_uri", value: reDirectURLStr),
+            URLQueryItem(name: "state", value: state)
+        ]
+        
+        // Open browserview
+        let safariVC = SFSafariViewController(url: (urlComponents?.url)!)
+        safariVC.delegate = self
+        self.present(safariVC, animated: true)
+        
+        return
         
     }
 }

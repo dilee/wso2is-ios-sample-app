@@ -29,12 +29,23 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     var userInfo: UserInfo?
     
     let userInfoManager = UserInfoManager.shared
+    let authStateManager = AuthStateManager.shared
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var userAgent:OIDExternalUserAgentIOS?
     
     // MARK: Properties
     @IBOutlet weak var userNameLabel: UILabel!
     
     override func viewDidLoad() {
+        self.userAgent = OIDExternalUserAgentIOS(presenting: self)
+        
         super.viewDidLoad()
+        
+        if self.authState == nil {
+            self.authState = self.authStateManager.getAuthState()
+        }
         
         if self.userInfo == nil {
             self.userInfo = self.userInfoManager.getUserInfo()
@@ -77,47 +88,27 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
         // Retrieve access token from current state
         let currentIdToken: String? = authState?.lastTokenResponse?.idToken
         
-        
         // Attempt to fetch fresh tokens if current tokens are expired and perform user info retrieval
         authState?.performAction() { (accessToken, idToken, error) in
             
             if error != nil  {
-                print(Constants.ErrorMessages.kErrorFetchingFreshTokens + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
+                print(NSLocalizedString("error.fetch.freshtokens", comment: Constants.ErrorMessages.kErrorFetchingFreshTokens) + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
                 return
             }
             
             guard let idToken = idToken else {
-                print(Constants.ErrorMessages.kErrorRetrievingIdToken)
+                print(NSLocalizedString("error.fetch.idtoken", comment: Constants.ErrorMessages.kErrorRetrievingIdToken))
                 return
             }
             
             if currentIdToken != idToken {
-                print(Constants.LogInfoMessages.kAccessTokenRefreshed + ": (\(currentIdToken ?? Constants.LogTags.kCurrentIdToken) to \(idToken))")
+                print(NSLocalizedString("info.idtoken.refreshed", comment: Constants.LogInfoMessages.kAccessTokenRefreshed)  + ": (\(currentIdToken ?? Constants.LogTags.kCurrentIdToken) to \(idToken))")
             } else {
-                print(Constants.LogInfoMessages.kIdTokenValid)
+                print(NSLocalizedString("info.idtoken.valid", comment: Constants.LogInfoMessages.kIdTokenValid))
             }
             
         }
         
-        let logoutURL = URL(string: logoutURLStr!)
-        var responseObj: [String: Any]?
-        let state = authState?.lastAuthorizationResponse.state!
-
-        // Build the URL
-        var urlComponents = URLComponents(string: logoutURLStr!)
-        
-        urlComponents?.queryItems = [
-            URLQueryItem(name: "id_token_hint", value: currentIdToken),
-            URLQueryItem(name: "post_logout_redirect_uri", value: reDirectURLStr),
-            URLQueryItem(name: "state", value: state)
-        ]
-        
-        // Open browserview
-        let safariVC = SFSafariViewController(url: (urlComponents?.url)!)
-        safariVC.delegate = self
-        self.present(safariVC, animated: true)
-        
-        return
-        
     }
+
 }

@@ -24,28 +24,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let authStateManager = AuthStateManager.shared
+    let sessionManager =  SessionManager.shared
     
     // External user agent session
     var externalUserAgentSession: OIDExternalUserAgentSession?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
+        // Resume app if already run
         if (authStateManager.getAuthState() != nil) {
             let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
             let viewController = storyBoard.instantiateViewController(withIdentifier: "profileVc")
             self.window?.rootViewController = viewController
         }
+        
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
+
         if let authorizationFlow = self.externalUserAgentSession, authorizationFlow.resumeExternalUserAgentFlow(with: url) {
             self.externalUserAgentSession = nil
             return true
         }
-        
+
         return false
     }
 

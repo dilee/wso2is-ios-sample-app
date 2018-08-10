@@ -23,6 +23,9 @@
 		89AA10A4211BEE1100D64645 /* AuthStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A3211BEE1100D64645 /* AuthStateManager.swift */; };
 		89AA10A8211BF37400D64645 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A7211BF37400D64645 /* UserInfo.swift */; };
 		89AA10AA211BFF7B00D64645 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A9211BFF7B00D64645 /* UserInfoManager.swift */; };
+		89AA10AC211D244E00D64645 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10AB211D244E00D64645 /* SessionManager.swift */; };
+		89AA10B1211D636B00D64645 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89AA10B0211D636B00D64645 /* Localizable.strings */; };
+		89AA10B3211D7C0D00D64645 /* CustomUserAgentSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10B2211D7C0D00D64645 /* CustomUserAgentSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,9 @@
 		89AA10A3211BEE1100D64645 /* AuthStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStateManager.swift; sourceTree = "<group>"; };
 		89AA10A7211BF37400D64645 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		89AA10A9211BFF7B00D64645 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
+		89AA10AB211D244E00D64645 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		89AA10B0211D636B00D64645 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "WSO2-IS-SampleApp/resources/Localizable.strings"; sourceTree = SOURCE_ROOT; };
+		89AA10B2211D7C0D00D64645 /* CustomUserAgentSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserAgentSession.swift; sourceTree = "<group>"; };
 		9294C912C025A912174E9DF8 /* Pods-WSO2-IS-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WSO2_IS_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E817B8FD6EC7D08A6E5F067A /* Pods-WSO2-IS-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				89AA10942118380900D64645 /* Constants.swift */,
+				89AA10B0211D636B00D64645 /* Localizable.strings */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -161,6 +168,7 @@
 		89AA109C2118BB4100D64645 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				89AA10B2211D7C0D00D64645 /* CustomUserAgentSession.swift */,
 				89AA109D2118BB5D00D64645 /* OAuthUtils.swift */,
 				89AA10A1211BE92B00D64645 /* LocalStorageManager.swift */,
 			);
@@ -172,6 +180,7 @@
 			children = (
 				89AA10A3211BEE1100D64645 /* AuthStateManager.swift */,
 				89AA10A9211BFF7B00D64645 /* UserInfoManager.swift */,
+				89AA10AB211D244E00D64645 /* SessionManager.swift */,
 			);
 			path = mgt;
 			sourceTree = "<group>";
@@ -268,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89AA10B1211D636B00D64645 /* Localizable.strings in Resources */,
 				89AA108B2117F5C500D64645 /* Config.plist in Resources */,
 				89AA107221142F4D00D64645 /* LaunchScreen.storyboard in Resources */,
 				89AA106F21142F4D00D64645 /* Assets.xcassets in Resources */,
@@ -354,6 +364,8 @@
 				89AA106821142F4C00D64645 /* AppDelegate.swift in Sources */,
 				89AA10952118380900D64645 /* Constants.swift in Sources */,
 				89AA10A4211BEE1100D64645 /* AuthStateManager.swift in Sources */,
+				89AA10AC211D244E00D64645 /* SessionManager.swift in Sources */,
+				89AA10B3211D7C0D00D64645 /* CustomUserAgentSession.swift in Sources */,
 				89AA10AA211BFF7B00D64645 /* UserInfoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

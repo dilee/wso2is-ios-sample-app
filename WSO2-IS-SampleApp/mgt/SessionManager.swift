@@ -49,8 +49,8 @@ class SessionManager {
     /// - Parameter sessionKey: Key which the session is stored under.
     /// - Returns: User agent session.
     func getSession(sessionKey: String) -> OIDExternalUserAgentSession? {
-        if let sessionWrapper = storageManager.getData(key: sessionKey) as? SessionWrapper {
-            return sessionWrapper.uaSession
+        if let session = storageManager.getData(key: sessionKey) as? OIDExternalUserAgentSession {
+            return session
         } else {
             return nil
         }

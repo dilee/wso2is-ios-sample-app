@@ -12,6 +12,6 @@ target 'WSO2-IS-SampleApp' do
     # Pods for testing
   end
   
-  pod 'AppAuth'
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git', :branch => 'dev-logout'
 
 end

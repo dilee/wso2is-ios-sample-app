@@ -37,12 +37,13 @@ class ViewController: UIViewController {
     let kAuthStateKey = "authState"
     let authStateManager = AuthStateManager.shared
     let userInfoManager = UserInfoManager.shared
+    let sessionManager = SessionManager.shared
     
-    var userInfo: UserInfo?
+    var userInfo: UserInfo!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         var configFileDictionary: NSDictionary?
         
         //Load configurations into the resourceFileDictionary dictionary
@@ -106,8 +107,8 @@ class ViewController: UIViewController {
             
             // Handle authorization error
             if let e = error {
-                print(Constants.ErrorMessages.kAuthorizationErrorGeneral + " : " + e.localizedDescription)
-                let alert = UIAlertController(title: "Error", message: Constants.ErrorMessages.kAuthorizationErrorGeneral, preferredStyle: UIAlertControllerStyle.alert)
+                print(NSLocalizedString("error.authorization", comment: Constants.ErrorMessages.kAuthorizationError) + " : " + e.localizedDescription)
+                let alert = UIAlertController(title: "Error", message: NSLocalizedString("error.authorization", comment: Constants.ErrorMessages.kAuthorizationError), preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -123,6 +124,8 @@ class ViewController: UIViewController {
         })
         
     }
+    
+    
     
     /// Retrieves user information from the server using the access token.
     ///
@@ -140,19 +143,19 @@ class ViewController: UIViewController {
         authState?.performAction() { (accessToken, idToken, error) in
             
             if error != nil  {
-                print(Constants.ErrorMessages.kErrorFetchingFreshTokens + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
+                print(NSLocalizedString("error.fetch.freshtokens", comment: Constants.ErrorMessages.kErrorFetchingFreshTokens) + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
                 return
             }
             
             guard let accessToken = accessToken else {
-                print(Constants.ErrorMessages.kErrorRetrievingAccessToken)
+                print(NSLocalizedString("error.fetch.accesstoken", comment: Constants.ErrorMessages.kErrorRetrievingAccessToken))
                 return
             }
             
             if currentAccessToken != accessToken {
-                print(Constants.LogInfoMessages.kAccessTokenRefreshed + ": (\(currentAccessToken ?? Constants.LogTags.kCurrentAccessToken) to \(accessToken))")
+                print(NSLocalizedString("info.accesstoken.refreshed", comment: Constants.LogInfoMessages.kAccessTokenRefreshed) + ": (\(currentAccessToken ?? Constants.LogTags.kCurrentAccessToken) to \(accessToken))")
             } else {
-                print(Constants.LogInfoMessages.kAccessTokenValid + ": \(accessToken)")
+                print(NSLocalizedString("info.accesstoken.valid", comment: Constants.LogInfoMessages.kAccessTokenValid) + ": \(accessToken)")
             }
             
             // Build user info request
@@ -171,19 +174,19 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     
                     guard error == nil else {
-                        print(Constants.ErrorMessages.kHTTPRequestFailed + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
+                        print(NSLocalizedString("error.http.request.fail", comment: Constants.ErrorMessages.kHTTPRequestFailed) + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
                         return
                     }
                     
                     // Check for non-HTTP response
                     guard let response = response as? HTTPURLResponse else {
-                        print(Constants.LogInfoMessages.kNonHTTPResponse)
+                        print(NSLocalizedString("info.nonhttp.response", comment: Constants.LogInfoMessages.kNonHTTPResponse))
                         return
                     }
                     
                     // Check for empty response
                     guard let data = data else {
-                        print(Constants.LogInfoMessages.kHTTPResponseEmpty)
+                        print(NSLocalizedString("info.http.response.empty", comment: Constants.LogInfoMessages.kHTTPResponseEmpty))
                         return
                     }
                     
@@ -191,7 +194,7 @@ class ViewController: UIViewController {
                     do {
                         jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                     } catch {
-                        print(Constants.ErrorMessages.kJSONSerializationError)
+                        print(NSLocalizedString("error.json.serialization", comment: Constants.ErrorMessages.kJSONSerializationError))
                     }
                     
                     // Response with an error
@@ -211,7 +214,7 @@ class ViewController: UIViewController {
                     }
                     
                     if let json = jsonResponse {
-                        print(Constants.LogInfoMessages.kInfoRetrievalSuccess + ": \(json)")
+                        print(NSLocalizedString("info.information.fetch.success", comment:Constants.LogInfoMessages.kInfoRetrievalSuccess) + ": \(json)")
                         let userName = jsonResponse!["username"] as? String
                         if let un = userName {
                             let userInfo = UserInfo(userName: un.components(separatedBy: "@")[0])
@@ -241,7 +244,7 @@ class ViewController: UIViewController {
         loggedInVC.authState = self.authState
         loggedInVC.clientId = self.clientId
         if let userInfo = self.userInfo {
-            loggedInVC.userInfo = self.userInfo!
+            loggedInVC.userInfo = userInfo
         }
     }
     
@@ -257,6 +260,7 @@ extension ViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate 
     func authState(_ state: OIDAuthState, didEncounterAuthorizationError error: Error) {
         print("Authorization error: \(error)")
     }
+    
 }
 
 //MARK: Helper Methods

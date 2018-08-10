@@ -20,6 +20,8 @@
 #import "OIDAuthStateErrorDelegate.h"
 #import "OIDClientMetadataParameters.h"
 #import "OIDDefines.h"
+#import "OIDEndSessionRequest.h"
+#import "OIDEndSessionResponse.h"
 #import "OIDError.h"
 #import "OIDErrorUtilities.h"
 #import "OIDExternalUserAgent.h"

@@ -28,6 +28,7 @@ class AuthStateManager {
     let storageManager = LocalStorageManager.shared
     let kDefaultAuthStateKey = "authState"
     
+    
     /// Saves the auth state to memory with a given key.
     ///
     /// - Parameters:
@@ -48,7 +49,7 @@ class AuthStateManager {
     ///
     /// - Parameter authStateKey: Key to retrieve authorization state.
     /// - Returns: Retrieved authorization state if exists, nil otherwise.
-    func loadAuthState(authStateKey: String) -> OIDAuthState? {
+    func getAuthState(authStateKey: String) -> OIDAuthState? {
         if let authState = storageManager.getData(key: authStateKey) as? OIDAuthState {
             return authState
         } else {

@@ -13,7 +13,7 @@
 	<key>AuthURL</key>
 	<string>https://wso2is.local:9443/oauth2/authorize</string>
 	<key>RedirectURL</key>
-	<string>wso2is.local:/oauth</string>
+	<string>wso2issample://oauth</string>
 	<key>ClientID</key>
 	<string>rD5qv6UALxzt5OCKuSjCJQkxFAIa</string>
 </dict>

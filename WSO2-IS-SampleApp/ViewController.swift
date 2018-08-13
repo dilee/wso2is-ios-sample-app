@@ -99,7 +99,7 @@ class ViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Configure OIDC Service
-        self.config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!, issuer: issuerURL, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
+        self.config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!)
         appDelegate.config = self.config
         
         // Generate authorization request with PKCE

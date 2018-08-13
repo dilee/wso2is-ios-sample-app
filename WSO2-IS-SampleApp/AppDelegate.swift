@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // External user agent session
     var externalUserAgentSession: OIDExternalUserAgentSession?
+    
+    // Application service configuration
+    var config: OIDServiceConfiguration?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         

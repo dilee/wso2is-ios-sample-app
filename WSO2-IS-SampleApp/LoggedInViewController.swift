@@ -24,12 +24,13 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     
     var logoutURLStr: String?
     var authState: OIDAuthState?
-    var reDirectURLStr: String?
+    var redirectURLStr: String?
     var clientId: String?
     var userInfo: UserInfo?
     
     let userInfoManager = UserInfoManager.shared
     let authStateManager = AuthStateManager.shared
+    let localStorageManager = LocalStorageManager.shared
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -40,7 +41,6 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     
     override func viewDidLoad() {
         self.userAgent = OIDExternalUserAgentIOS(presenting: self)
-        
         super.viewDidLoad()
         
         if self.authState == nil {
@@ -66,7 +66,7 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
         // Read from dictionary content
         if let configFileDictionaryContent = configFileDictionary {
             logoutURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kLogoutURLPropKey) as? String
-            reDirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
+            redirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
         }
     
     }
@@ -78,14 +78,21 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     
     // MARK: Actions
     @IBAction func signOutButton(_ sender: UIButton) {
-        logOutUser()
+        let refreshAlert = UIAlertController(title: NSLocalizedString("info.alert.signout.title", comment: "Sign out"), message: NSLocalizedString("info.alert.signout.message", comment: "Are you sure you want to logout? This will clear all your data on this device."), preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            self.logOutUser()
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in }))
+        
+        present(refreshAlert, animated: true, completion: nil)
     }
     
     /// Logs out the user.
     func logOutUser() {
         
-        
-        // Retrieve access token from current state
+        // Retrieve ID token from current state
         let currentIdToken: String? = authState?.lastTokenResponse?.idToken
         
         // Attempt to fetch fresh tokens if current tokens are expired and perform user info retrieval
@@ -109,6 +116,20 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
             
         }
         
+        // Redirect to the OP's logout page
+        let logoutURL = URL(string: logoutURLStr!)
+        let postLogoutRedirURL = URL(string: redirectURLStr!)
+        
+        let config = OIDServiceConfiguration(authorizationEndpoint: (appDelegate.config?.authorizationEndpoint)!, tokenEndpoint: (appDelegate.config?.tokenEndpoint)!, issuer: nil, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
+        
+        let logoutRequest = OIDEndSessionRequest(configuration: config, idTokenHint: currentIdToken!, postLogoutRedirectURL: postLogoutRedirURL!, state: (authState?.lastAuthorizationResponse.state)!, additionalParameters: nil)
+        
+        userAgent?.present(logoutRequest, session: appDelegate.externalUserAgentSession!)
+        
+        // Log out locally
+        appDelegate.externalUserAgentSession = nil
+        localStorageManager.clearLocalMemory()
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 
 }

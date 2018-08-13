@@ -23,21 +23,24 @@ class ViewController: UIViewController {
     
     // Configuration Properties
     var clientId: String?
+    var issuerURLStr: String?
     var redirectURLStr: String?
     var authURLStr: String?
     var tokenURLStr: String?
     var userInfoURLStr: String?
+    var logoutURLStr: String?
     
     // Tokens
     var accessToken: String?
     var refreshToken: String?
     var idToken: String?
     
-    var authState: OIDAuthState?
     let kAuthStateKey = "authState"
+    var authState: OIDAuthState?
     let authStateManager = AuthStateManager.shared
     let userInfoManager = UserInfoManager.shared
     let sessionManager = SessionManager.shared
+    var config: OIDServiceConfiguration?
     
     var userInfo: UserInfo!
 
@@ -60,10 +63,12 @@ class ViewController: UIViewController {
         // Read from dictionary content
         if let configFileDictionaryContent = configFileDictionary {
             clientId = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kClientIdPropKey) as? String
+            issuerURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kIssuerIdPropKey) as? String
             redirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
             authURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kAuthURLPropKey) as? String
             tokenURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kTokenURLPropKey) as? String
             userInfoURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kUserInfoURLPropKey) as? String
+            logoutURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kLogoutURLPropKey) as? String
         }
     }
 
@@ -85,17 +90,20 @@ class ViewController: UIViewController {
     /// Starts authorization flow.
     func startAuthWithPKCE() {
         
+        let issuerURL = URL(string: issuerURLStr!)
         let authURL = URL(string: authURLStr!)
         let tokenURL = URL(string: tokenURLStr!)
         let redirectURL = URL(string: redirectURLStr!)
         let userInfoURL = URL(string: userInfoURLStr!)
+        let logoutURL =  URL(string: logoutURLStr!)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Configure OIDC Service
-        let config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!)
+        self.config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!, issuer: issuerURL, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
+        appDelegate.config = self.config
         
         // Generate authorization request with PKCE
-        let authRequest = OIDAuthorizationRequest(configuration: config,
+        let authRequest = OIDAuthorizationRequest(configuration: config!,
                                                   clientId: clientId!,
                                                   scopes: [Constants.OAuthReqConstants.kScope],
                                                   redirectURL: redirectURL!,
@@ -124,7 +132,6 @@ class ViewController: UIViewController {
         })
         
     }
-    
     
     
     /// Retrieves user information from the server using the access token.
@@ -229,12 +236,12 @@ class ViewController: UIViewController {
         }
     }
     
-    /// Logs in user and switches to the next view.
+    /// Logs user in and switches to the next view.
     func logIn() {
         print("Access Token: " + accessToken!)
         print("Refresh Token: " + refreshToken!)
         print("ID Token: " + idToken!)
-        
+
         performSegue(withIdentifier: "loggedInSegue", sender: self)
     }
     
@@ -279,6 +286,11 @@ extension ViewController {
     /// Updates the state when a change occures.
     func authStateChanged() {
         authStateManager.saveAuthState(authState: self.authState!)
+    }
+    
+    /// Clears the auth state.
+    func clearAuthState() {
+        self.authState = nil
     }
     
 }

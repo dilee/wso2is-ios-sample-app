@@ -33,3 +33,5 @@
 "info.http.response.empty" = "HTTP response data is empty.";
 "info.nonhttp.response" = "Non-HTTP response.";
 "info.information.fetch.success" = "Information retrieval success.";
+"info.alert.signout.title" = "Sign out";
+"info.alert.signout.message" = "Are you sure you want to logout? This will clear all your data on this device.";

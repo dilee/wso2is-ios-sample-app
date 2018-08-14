@@ -49,6 +49,8 @@ class ViewController: UIViewController {
         
         var configFileDictionary: NSDictionary?
         
+        self.authState = authStateManager.getAuthState()
+        
         //Load configurations into the resourceFileDictionary dictionary
         if let path = Bundle.main.path(forResource: "Config", ofType: "plist") {
             configFileDictionary = NSDictionary(contentsOfFile: path)
@@ -70,6 +72,7 @@ class ViewController: UIViewController {
             userInfoURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kUserInfoURLPropKey) as? String
             logoutURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kLogoutURLPropKey) as? String
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -165,13 +168,9 @@ class ViewController: UIViewController {
             
             // Build user info request
             var urlRequest = URLRequest(url: userInfoURL)
-            urlRequest.httpMethod = "POST"
+            urlRequest.httpMethod = "GET"
             // Request header
             urlRequest.allHTTPHeaderFields = ["Authorization":"Bearer \(accessToken)"]
-            // Request body
-            let tokenStr = "token=\(accessToken)"
-            let data: Data? = tokenStr.data(using: .utf8)
-            urlRequest.httpBody = data
             
             // Retrieve user information
             let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
@@ -220,9 +219,9 @@ class ViewController: UIViewController {
                     
                     if let json = jsonResponse {
                         print(NSLocalizedString("info.information.fetch.success", comment:Constants.LogInfoMessages.kInfoRetrievalSuccess) + ": \(json)")
-                        let userName = jsonResponse!["username"] as? String
+                        let userName = jsonResponse!["sub"] as? String
                         if let un = userName {
-                            let userInfo = UserInfo(userName: un.components(separatedBy: "@")[0])
+                            let userInfo = UserInfo(userName: un)
                             self.userInfo = userInfo
                             self.userInfoManager.saveUserInfo(userInfo: userInfo)
                         }

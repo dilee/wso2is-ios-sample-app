@@ -129,8 +129,8 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
         
         let logoutRequest = OIDEndSessionRequest(configuration: config, idTokenHint: currentIdToken!, postLogoutRedirectURL: postLogoutRedirURL!, state: (authState?.lastAuthorizationResponse.state)!, additionalParameters: nil)
         
-        appDelegate.externalUserAgentSession = OIDAuthorizationService.present(logoutRequest, externalUserAgent: userAgent!, callback: { (authorizationState, error) in})
-
+        appDelegate.externalUserAgentSession = OIDAuthorizationService.present(logoutRequest, externalUserAgent: userAgent!, callback: { (authorizationState, error) in })
+        
         // Log out locally
         appDelegate.externalUserAgentSession = nil
         localStorageManager.clearLocalMemory()

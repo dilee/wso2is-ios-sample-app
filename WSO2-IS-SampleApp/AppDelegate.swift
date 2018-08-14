@@ -24,10 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let authStateManager = AuthStateManager.shared
-    let sessionManager =  SessionManager.shared
     
     // External user agent session
     var externalUserAgentSession: OIDExternalUserAgentSession?
+    
+    // Application service configuration
+    var config: OIDServiceConfiguration?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         

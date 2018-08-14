@@ -51,4 +51,27 @@ class LocalStorageManager {
         return NSKeyedUnarchiver.unarchiveObject(with: data)
     }
     
+    
+    /// Deletes an entry from local memory stored under a key.
+    ///
+    /// - Parameter key: Key which the object was saved under.
+    /// - Returns: Returns true if the deletion is successful, false otherwise.
+    func deleteData(key: String) -> Bool {
+        guard let data = UserDefaults.standard.object(forKey: key) as? Data else {
+            return false
+        }
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: key)
+        defaults.synchronize()
+        
+        return true
+    }
+    
+    /// Clears the local memory
+    func clearLocalMemory() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+    }
+    
 }

@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let authStateManager = AuthStateManager.shared
-    let sessionManager =  SessionManager.shared
     
     // External user agent session
     var externalUserAgentSession: OIDExternalUserAgentSession?

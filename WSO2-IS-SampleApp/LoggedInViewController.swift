@@ -31,6 +31,7 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     let userInfoManager = UserInfoManager.shared
     let authStateManager = AuthStateManager.shared
     let localStorageManager = LocalStorageManager.shared
+    let configManager = ConfigManager.shared
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -120,15 +121,22 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
         let logoutURL = URL(string: logoutURLStr!)
         let postLogoutRedirURL = URL(string: redirectURLStr!)
         
+        if (appDelegate.config == nil) {
+            appDelegate.config = configManager.getConfig()
+        }
+        
         let config = OIDServiceConfiguration(authorizationEndpoint: (appDelegate.config?.authorizationEndpoint)!, tokenEndpoint: (appDelegate.config?.tokenEndpoint)!, issuer: nil, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
         
         let logoutRequest = OIDEndSessionRequest(configuration: config, idTokenHint: currentIdToken!, postLogoutRedirectURL: postLogoutRedirURL!, state: (authState?.lastAuthorizationResponse.state)!, additionalParameters: nil)
         
-        userAgent?.present(logoutRequest, session: appDelegate.externalUserAgentSession!)
-        
+        appDelegate.externalUserAgentSession = OIDAuthorizationService.present(logoutRequest, externalUserAgent: userAgent!, callback: { (authorizationState, error) in})
+
         // Log out locally
         appDelegate.externalUserAgentSession = nil
         localStorageManager.clearLocalMemory()
+        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let viewController = storyBoard.instantiateViewController(withIdentifier: "mainVC")
+        self.appDelegate.window?.rootViewController = viewController
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 

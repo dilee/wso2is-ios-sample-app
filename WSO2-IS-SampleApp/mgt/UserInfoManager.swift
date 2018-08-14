@@ -25,7 +25,7 @@ class UserInfoManager {
     private init(){}
     
     let storageManager = LocalStorageManager.shared
-    let kDefaultUsrInfoKey = "userInfo"
+    let kDefaultUserInfoKey = "userInfo"
     
     /// Saves user information to memory with a given key.
     ///
@@ -40,7 +40,7 @@ class UserInfoManager {
     ///
     /// - Parameter userInfo: User information.
     func saveUserInfo(userInfo: UserInfo) {
-        storageManager.saveData(object: userInfo, key: kDefaultUsrInfoKey)
+        storageManager.saveData(object: userInfo, key: kDefaultUserInfoKey)
     }
     
     /// Retrieves user information from memory for a given key.
@@ -59,7 +59,7 @@ class UserInfoManager {
     ///
     /// - Returns: Retrieved user information if exist, nil otherwise.
     func getUserInfo() -> UserInfo? {
-        if let userInfo = storageManager.getData(key: kDefaultUsrInfoKey) as? UserInfo {
+        if let userInfo = storageManager.getData(key: kDefaultUserInfoKey) as? UserInfo {
             return userInfo
         } else {
             return nil

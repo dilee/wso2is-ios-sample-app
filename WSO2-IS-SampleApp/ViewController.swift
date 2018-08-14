@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     var authState: OIDAuthState?
     let authStateManager = AuthStateManager.shared
     let userInfoManager = UserInfoManager.shared
-    let sessionManager = SessionManager.shared
+    let configManager = ConfigManager.shared
     var config: OIDServiceConfiguration?
     
     var userInfo: UserInfo!
@@ -90,17 +90,16 @@ class ViewController: UIViewController {
     /// Starts authorization flow.
     func startAuthWithPKCE() {
         
-        let issuerURL = URL(string: issuerURLStr!)
         let authURL = URL(string: authURLStr!)
         let tokenURL = URL(string: tokenURLStr!)
         let redirectURL = URL(string: redirectURLStr!)
         let userInfoURL = URL(string: userInfoURLStr!)
-        let logoutURL =  URL(string: logoutURLStr!)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Configure OIDC Service
         self.config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!)
         appDelegate.config = self.config
+        configManager.saveConfig(config: self.config!)
         
         // Generate authorization request with PKCE
         let authRequest = OIDAuthorizationRequest(configuration: config!,
@@ -132,7 +131,6 @@ class ViewController: UIViewController {
         })
         
     }
-    
     
     /// Retrieves user information from the server using the access token.
     ///

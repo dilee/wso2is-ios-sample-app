@@ -19,7 +19,7 @@
 import UIKit
 import AppAuth
 
-class ViewController: UIViewController {
+class LogInViewController: UIViewController {
     
     // Configuration Properties
     var clientId: String?
@@ -39,7 +39,6 @@ class ViewController: UIViewController {
     var authState: OIDAuthState?
     let authStateManager = AuthStateManager.shared
     let userInfoManager = UserInfoManager.shared
-    let configManager = ConfigManager.shared
     var config: OIDServiceConfiguration?
     
     var userInfo: UserInfo!
@@ -101,8 +100,6 @@ class ViewController: UIViewController {
         
         // Configure OIDC Service
         self.config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!)
-        appDelegate.config = self.config
-        configManager.saveConfig(config: self.config!)
         
         // Generate authorization request with PKCE
         let authRequest = OIDAuthorizationRequest(configuration: config!,
@@ -244,7 +241,7 @@ class ViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let loggedInVC : LoggedInViewController = segue.destination as! LoggedInViewController
+        let loggedInVC : ProfileViewController = segue.destination as! ProfileViewController
         loggedInVC.authState = self.authState
         loggedInVC.clientId = self.clientId
         if let userInfo = self.userInfo {
@@ -255,7 +252,7 @@ class ViewController: UIViewController {
 }
 
 //MARK: OIDAuthState Delegate
-extension ViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate {
+extension LogInViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate {
     
     func didChange(_ state: OIDAuthState) {
         self.authStateChanged()
@@ -268,7 +265,7 @@ extension ViewController: OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate 
 }
 
 //MARK: Helper Methods
-extension ViewController {
+extension LogInViewController {
  
     /// Sets or updates the auth state.
     func setAuthState(_ authState: OIDAuthState?) {

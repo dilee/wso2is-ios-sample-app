@@ -10,21 +10,20 @@
 		2412CDFD3B1D5B23AC3EE65F /* Pods_WSO2_IS_SampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F6DF6C1CA432C1F2FF999B /* Pods_WSO2_IS_SampleAppTests.framework */; };
 		2E95CD915361DA4EF6995E72 /* Pods_WSO2_IS_SampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */; };
 		89AA106821142F4C00D64645 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA106721142F4C00D64645 /* AppDelegate.swift */; };
-		89AA106A21142F4C00D64645 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA106921142F4C00D64645 /* ViewController.swift */; };
+		89AA106A21142F4C00D64645 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA106921142F4C00D64645 /* LogInViewController.swift */; };
 		89AA106D21142F4C00D64645 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89AA106B21142F4C00D64645 /* Main.storyboard */; };
 		89AA106F21142F4D00D64645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89AA106E21142F4D00D64645 /* Assets.xcassets */; };
 		89AA107221142F4D00D64645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89AA107021142F4D00D64645 /* LaunchScreen.storyboard */; };
 		89AA107D21142F4D00D64645 /* WSO2_IS_SampleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA107C21142F4D00D64645 /* WSO2_IS_SampleAppTests.swift */; };
 		89AA108B2117F5C500D64645 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89AA108A2117F5C500D64645 /* Config.plist */; };
 		89AA10952118380900D64645 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10942118380900D64645 /* Constants.swift */; };
-		89AA1097211848AE00D64645 /* LoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1096211848AE00D64645 /* LoggedInViewController.swift */; };
+		89AA1097211848AE00D64645 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1096211848AE00D64645 /* ProfileViewController.swift */; };
 		89AA109E2118BB5D00D64645 /* OAuthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA109D2118BB5D00D64645 /* OAuthUtils.swift */; };
 		89AA10A2211BE92B00D64645 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A1211BE92B00D64645 /* LocalStorageManager.swift */; };
 		89AA10A4211BEE1100D64645 /* AuthStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A3211BEE1100D64645 /* AuthStateManager.swift */; };
 		89AA10A8211BF37400D64645 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A7211BF37400D64645 /* UserInfo.swift */; };
 		89AA10AA211BFF7B00D64645 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10A9211BFF7B00D64645 /* UserInfoManager.swift */; };
 		89AA10B1211D636B00D64645 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89AA10B0211D636B00D64645 /* Localizable.strings */; };
-		89AA10B52121A88700D64645 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AA10B42121A88700D64645 /* ConfigManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +41,7 @@
 		431C92A6CD79D9D4E5E4F22F /* Pods-WSO2-IS-SampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleAppTests/Pods-WSO2-IS-SampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		89AA106421142F4C00D64645 /* WSO2 IS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WSO2 IS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89AA106721142F4C00D64645 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		89AA106921142F4C00D64645 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		89AA106921142F4C00D64645 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		89AA106C21142F4C00D64645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89AA106E21142F4D00D64645 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89AA107121142F4D00D64645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,14 +51,13 @@
 		89AA107E21142F4D00D64645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89AA108A2117F5C500D64645 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		89AA10942118380900D64645 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		89AA1096211848AE00D64645 /* LoggedInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInViewController.swift; sourceTree = "<group>"; };
+		89AA1096211848AE00D64645 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		89AA109D2118BB5D00D64645 /* OAuthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthUtils.swift; sourceTree = "<group>"; };
 		89AA10A1211BE92B00D64645 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		89AA10A3211BEE1100D64645 /* AuthStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStateManager.swift; sourceTree = "<group>"; };
 		89AA10A7211BF37400D64645 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		89AA10A9211BFF7B00D64645 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		89AA10B0211D636B00D64645 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "WSO2-IS-SampleApp/resources/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		89AA10B42121A88700D64645 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		9294C912C025A912174E9DF8 /* Pods-WSO2-IS-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		CC8AAA34E9AE6C78E71AE45B /* Pods_WSO2_IS_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WSO2_IS_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E817B8FD6EC7D08A6E5F067A /* Pods-WSO2-IS-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WSO2-IS-SampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WSO2-IS-SampleApp/Pods-WSO2-IS-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,8 +107,8 @@
 		8925075521229D3B0031F299 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				89AA106921142F4C00D64645 /* ViewController.swift */,
-				89AA1096211848AE00D64645 /* LoggedInViewController.swift */,
+				89AA106921142F4C00D64645 /* LogInViewController.swift */,
+				89AA1096211848AE00D64645 /* ProfileViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -185,7 +183,6 @@
 			children = (
 				89AA10A3211BEE1100D64645 /* AuthStateManager.swift */,
 				89AA10A9211BFF7B00D64645 /* UserInfoManager.swift */,
-				89AA10B42121A88700D64645 /* ConfigManager.swift */,
 			);
 			path = mgt;
 			sourceTree = "<group>";
@@ -362,9 +359,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89AA109E2118BB5D00D64645 /* OAuthUtils.swift in Sources */,
-				89AA1097211848AE00D64645 /* LoggedInViewController.swift in Sources */,
-				89AA106A21142F4C00D64645 /* ViewController.swift in Sources */,
-				89AA10B52121A88700D64645 /* ConfigManager.swift in Sources */,
+				89AA1097211848AE00D64645 /* ProfileViewController.swift in Sources */,
+				89AA106A21142F4C00D64645 /* LogInViewController.swift in Sources */,
 				89AA10A2211BE92B00D64645 /* LocalStorageManager.swift in Sources */,
 				89AA10A8211BF37400D64645 /* UserInfo.swift in Sources */,
 				89AA106821142F4C00D64645 /* AppDelegate.swift in Sources */,

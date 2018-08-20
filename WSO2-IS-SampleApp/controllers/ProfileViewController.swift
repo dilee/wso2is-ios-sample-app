@@ -20,9 +20,11 @@ import UIKit
 import AppAuth
 import SafariServices
 
-class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
+class ProfileViewController: UIViewController, SFSafariViewControllerDelegate {
     
     var logoutURLStr: String?
+    var authURLStr: String?
+    var tokenURLStr: String?
     var authState: OIDAuthState?
     var redirectURLStr: String?
     var clientId: String?
@@ -31,7 +33,6 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
     let userInfoManager = UserInfoManager.shared
     let authStateManager = AuthStateManager.shared
     let localStorageManager = LocalStorageManager.shared
-    let configManager = ConfigManager.shared
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -66,6 +67,8 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
         
         // Read from dictionary content
         if let configFileDictionaryContent = configFileDictionary {
+            authURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kAuthURLPropKey) as? String
+            tokenURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kTokenURLPropKey) as? String
             logoutURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kLogoutURLPropKey) as? String
             redirectURLStr = configFileDictionaryContent.object(forKey: Constants.OAuthReqConstants.kRedirectURLPropKey) as? String
         }
@@ -119,13 +122,11 @@ class LoggedInViewController: UIViewController, SFSafariViewControllerDelegate {
         
         // Redirect to the OP's logout page
         let logoutURL = URL(string: logoutURLStr!)
+        let authURL = URL(string: authURLStr!)
+        let tokenURL = URL(string: tokenURLStr!)
         let postLogoutRedirURL = URL(string: redirectURLStr!)
         
-        if (appDelegate.config == nil) {
-            appDelegate.config = configManager.getConfig()
-        }
-        
-        let config = OIDServiceConfiguration(authorizationEndpoint: (appDelegate.config?.authorizationEndpoint)!, tokenEndpoint: (appDelegate.config?.tokenEndpoint)!, issuer: nil, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
+        let config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!, issuer: nil, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
         
         let logoutRequest = OIDEndSessionRequest(configuration: config, idTokenHint: currentIdToken!, postLogoutRedirectURL: postLogoutRedirURL!, state: (authState?.lastAuthorizationResponse.state)!, additionalParameters: nil)
         

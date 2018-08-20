@@ -28,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // External user agent session
     var externalUserAgentSession: OIDExternalUserAgentSession?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
+        [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Resume app if already run
         if (authStateManager.getAuthState() != nil) {
@@ -40,9 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options:
+        [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
 
-        if let authorizationFlow = self.externalUserAgentSession, authorizationFlow.resumeExternalUserAgentFlow(with: url) {
+        if let authorizationFlow = self.externalUserAgentSession,
+            authorizationFlow.resumeExternalUserAgentFlow(with: url) {
             self.externalUserAgentSession = nil
             return true
         }

@@ -24,6 +24,8 @@
 "error.http.request.fail" = "HTTP request failed.";
 "error.json.serialization" = "JSON Serialization Error.";
 "error.authorization" = "Authorization Error.";
+"error.userinfo.fetch" = "Couldn't fetch user information.";
+"error.login.fail" = "Could not log you in";
 
 // Info messages
 "info.accesstoken.refreshed" = "Access token was refreshed automatically.";
@@ -35,3 +37,6 @@
 "info.information.fetch.success" = "Information retrieval success.";
 "info.alert.signout.title" = "Sign out";
 "info.alert.signout.message" = "Are you sure you want to logout? This will clear all your data on this device.";
+"info.external.logout.notify.title" = "Logout from WSO2";
+"info.external.logout.notify.message" = "You will be redirected to the log out page of WSO2";
+"info.alert.signin.fail.title" = "Sign in failed";

@@ -36,7 +36,7 @@ class Constants {
         static let kLogoutURLPropKey = "LogOutURL"
     }
     
-    /// Error messages
+    /// Fallback error messages
     struct ErrorMessages {
         static let kAuthorizationErrorGeneral = "Authorization failed."
         static let kErrorFetchingFreshTokens = "Error fetching fresh tokens."
@@ -45,6 +45,8 @@ class Constants {
         static let kHTTPRequestFailed = "HTTP request failed."
         static let kJSONSerializationError = "JSON Serialization Error."
         static let kAuthorizationError = "Authorization Error."
+        static let kUserInfoFetchError = "Error fetching user information."
+        static let kLogInFail = "Could not log you in"
     }
     
     /// Log message tags

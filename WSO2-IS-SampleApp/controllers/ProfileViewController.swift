@@ -30,10 +30,6 @@ class ProfileViewController: UIViewController, SFSafariViewControllerDelegate {
     var clientId: String?
     var userInfo: UserInfo?
     
-    let userInfoManager = UserInfoManager.shared
-    let authStateManager = AuthStateManager.shared
-    let localStorageManager = LocalStorageManager.shared
-    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var userAgent:OIDExternalUserAgentIOS?
@@ -46,11 +42,11 @@ class ProfileViewController: UIViewController, SFSafariViewControllerDelegate {
         super.viewDidLoad()
         
         if self.authState == nil {
-            self.authState = self.authStateManager.getAuthState()
+            self.authState = AuthStateManager.shared.getAuthState()
         }
         
         if self.userInfo == nil {
-            self.userInfo = self.userInfoManager.getUserInfo()
+            self.userInfo = UserInfoManager.shared.getUserInfo()
         }
 
         // Setting user information to labels
@@ -120,21 +116,30 @@ class ProfileViewController: UIViewController, SFSafariViewControllerDelegate {
             
         }
         
-        // Redirect to the OP's logout page
-        let logoutURL = URL(string: logoutURLStr!)
-        let authURL = URL(string: authURLStr!)
-        let tokenURL = URL(string: tokenURLStr!)
-        let postLogoutRedirURL = URL(string: redirectURLStr!)
+        // Log out from the OP
+        let alert = UIAlertController(title: NSLocalizedString("info.external.logout.notify.title", comment: "Logout from WSO2"), message: NSLocalizedString("info.external.logout.notify.message", comment: "You will be redirected to the log out page of WSO2"), preferredStyle: UIAlertControllerStyle.alert)
         
-        let config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!, issuer: nil, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
+            
+            // Redirect to the OP's logout page
+            let logoutURL = URL(string: self.logoutURLStr!)
+            let authURL = URL(string: self.authURLStr!)
+            let tokenURL = URL(string: self.tokenURLStr!)
+            let postLogoutRedirURL = URL(string: self.redirectURLStr!)
+            
+            let config = OIDServiceConfiguration(authorizationEndpoint: authURL!, tokenEndpoint: tokenURL!, issuer: nil, registrationEndpoint: nil, endSessionEndpoint: logoutURL)
+            
+            let logoutRequest = OIDEndSessionRequest(configuration: config, idTokenHint: currentIdToken!, postLogoutRedirectURL: postLogoutRedirURL!, state: (self.authState?.lastAuthorizationResponse.state)!, additionalParameters: nil)
+            
+            self.appDelegate.externalUserAgentSession = OIDAuthorizationService.present(logoutRequest, externalUserAgent: self.userAgent!, callback: { (authorizationState, error) in })
+        }))
         
-        let logoutRequest = OIDEndSessionRequest(configuration: config, idTokenHint: currentIdToken!, postLogoutRedirectURL: postLogoutRedirURL!, state: (authState?.lastAuthorizationResponse.state)!, additionalParameters: nil)
-        
-        appDelegate.externalUserAgentSession = OIDAuthorizationService.present(logoutRequest, externalUserAgent: userAgent!, callback: { (authorizationState, error) in })
+        self.present(alert, animated: true, completion: nil)
         
         // Log out locally
         appDelegate.externalUserAgentSession = nil
-        localStorageManager.clearLocalMemory()
+        LocalStorageManager.shared.clearLocalMemory()
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let viewController = storyBoard.instantiateViewController(withIdentifier: "mainVC")
         self.appDelegate.window?.rootViewController = viewController

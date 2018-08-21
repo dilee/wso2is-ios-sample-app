@@ -30,7 +30,8 @@ class OAuthUtils {
     /// - Parameters:
     ///   - userInfoEP: User information endpoint.
     /// - Returns: User information as a JSON object.
-    func retrieveUserInfo(userInfoURL: URL, authState: OIDAuthState?, completion: @escaping (_ userInfo : UserInfo?) -> Void) {
+    func retrieveUserInfo(userInfoURL: URL, authState: OIDAuthState?,
+                          completion: @escaping (_ userInfo : UserInfo?) -> Void) {
         
         // Retrieve access token from current state
         let currentAccessToken: String? = authState?.lastTokenResponse?.accessToken
@@ -41,19 +42,25 @@ class OAuthUtils {
         authState?.performAction() { (accessToken, idToken, error) in
             
             if error != nil  {
-                print(NSLocalizedString("error.fetch.freshtokens", comment: Constants.ErrorMessages.kErrorFetchingFreshTokens) + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
+                print(NSLocalizedString("error.fetch.freshtokens",
+                                        comment: Constants.ErrorMessages.kErrorFetchingFreshTokens) +
+                    " \(error?.localizedDescription ?? Constants.LogTags.kError)")
                 return
             }
             
             guard let accessToken = accessToken else {
-                print(NSLocalizedString("error.fetch.accesstoken", comment: Constants.ErrorMessages.kErrorRetrievingAccessToken))
+                print(NSLocalizedString("error.fetch.accesstoken",
+                                        comment: Constants.ErrorMessages.kErrorRetrievingAccessToken))
                 return
             }
             
             if currentAccessToken != accessToken {
-                print(NSLocalizedString("info.accesstoken.refreshed", comment: Constants.LogInfoMessages.kAccessTokenRefreshed) + ": (\(currentAccessToken ?? Constants.LogTags.kCurrentAccessToken) to \(accessToken))")
+                print(NSLocalizedString("info.accesstoken.refreshed",
+                                        comment: Constants.LogInfoMessages.kAccessTokenRefreshed) +
+                    ": (\(currentAccessToken ?? Constants.LogTags.kCurrentAccessToken) to \(accessToken))")
             } else {
-                print(NSLocalizedString("info.accesstoken.valid", comment: Constants.LogInfoMessages.kAccessTokenValid) + ": \(accessToken)")
+                print(NSLocalizedString("info.accesstoken.valid",
+                                        comment: Constants.LogInfoMessages.kAccessTokenValid) + ": \(accessToken)")
             }
             
             // Build user info request
@@ -68,19 +75,23 @@ class OAuthUtils {
                 DispatchQueue.main.async {
                     
                     guard error == nil else {
-                        print(NSLocalizedString("error.http.request.fail", comment: Constants.ErrorMessages.kHTTPRequestFailed) + " \(error?.localizedDescription ?? Constants.LogTags.kError)")
+                        print(NSLocalizedString("error.http.request.fail",
+                                                comment: Constants.ErrorMessages.kHTTPRequestFailed) +
+                            " \(error?.localizedDescription ?? Constants.LogTags.kError)")
                         return
                     }
                     
                     // Check for non-HTTP response
                     guard let response = response as? HTTPURLResponse else {
-                        print(NSLocalizedString("info.nonhttp.response", comment: Constants.LogInfoMessages.kNonHTTPResponse))
+                        print(NSLocalizedString("info.nonhttp.response",
+                                                comment: Constants.LogInfoMessages.kNonHTTPResponse))
                         return
                     }
                     
                     // Check for empty response
                     guard let data = data else {
-                        print(NSLocalizedString("info.http.response.empty", comment: Constants.LogInfoMessages.kHTTPResponseEmpty))
+                        print(NSLocalizedString("info.http.response.empty",
+                                                comment: Constants.LogInfoMessages.kHTTPResponseEmpty))
                         return
                     }
                     
@@ -88,7 +99,8 @@ class OAuthUtils {
                     do {
                         jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                     } catch {
-                        print(NSLocalizedString("error.json.serialization", comment: Constants.ErrorMessages.kJSONSerializationError))
+                        print(NSLocalizedString("error.json.serialization",
+                                                comment: Constants.ErrorMessages.kJSONSerializationError))
                     }
                     
                     // Response with an error
@@ -97,18 +109,22 @@ class OAuthUtils {
                         
                         if response.statusCode == Constants.HTTPResponseCodes.kUnauthorised {
                             // Possible an issue with the authorization grant
-                            let oAuthError = OIDErrorUtilities.resourceServerAuthorizationError(withCode: 0,
-                                                                                                errorResponse: jsonResponse,
-                                                                                                underlyingError: error)
+                            let oAuthError =
+                                OIDErrorUtilities.resourceServerAuthorizationError(withCode: 0,
+                                                                                   errorResponse: jsonResponse,
+                                                                                            underlyingError: error)
                             authState?.update(withAuthorizationError: oAuthError)
-                            print(Constants.ErrorMessages.kAuthorizationError + " (\(oAuthError)). Response: \(responseText ?? Constants.LogTags.kResponseText)")
+                            print(Constants.ErrorMessages.kAuthorizationError +
+                                " (\(oAuthError)). Response: \(responseText ?? Constants.LogTags.kResponseText)")
                         } else {
-                            print(Constants.LogTags.kHTTP + "\(response.statusCode), Response: \(responseText ?? Constants.LogTags.kResponseText)")
+                            print(Constants.LogTags.kHTTP +
+                                "\(response.statusCode), Response: \(responseText ?? Constants.LogTags.kResponseText)")
                         }
                     }
                     
                     if let json = jsonResponse {
-                        print(NSLocalizedString("info.information.fetch.success", comment:Constants.LogInfoMessages.kInfoRetrievalSuccess) + ": \(json)")
+                        print(NSLocalizedString("info.information.fetch.success",
+                                                comment:Constants.LogInfoMessages.kInfoRetrievalSuccess) + ": \(json)")
                         let userName = jsonResponse!["sub"] as? String
                         var userInfo: UserInfo?
                         if let un = userName {
@@ -156,7 +172,8 @@ class OAuthUtils {
     /// - Returns: Decoded JWT segment as a string.
     func decodeJWTPart(_ value: String) -> [String: Any]? {
         guard let bodyData = base64UrlDecode(value),
-            let json = try? JSONSerialization.jsonObject(with: bodyData, options: []), let payload = json as? [String: Any] else {
+            let json = try? JSONSerialization.jsonObject(with: bodyData, options: []), let payload =
+            json as? [String: Any] else {
                 return nil
         }
         return payload
